@@ -10,7 +10,7 @@ export const PROJECT_ROUTES: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./projects-list/projects-list').then((m) => m.ProjectsList)
+        loadComponent: () => import('./projects-page/projects-page').then((m) => m.ProjectsPage)
       },
       {
         path: 'create',

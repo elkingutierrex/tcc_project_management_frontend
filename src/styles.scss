@@ -38,9 +38,39 @@ body {
 }
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* RESET */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-.app-container{
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #fafafa;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+/* MOBILE FIRST CONTAINER */
+.app-container {
   padding: 16px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* TABLET */
+@media (min-width: 600px) {
+  .app-container {
+    padding: 20px;
+    width: min(90%, 800px);
+  }
+}
+
+/* DESKTOP */
+@media (min-width: 1200px) {
+  .app-container {
+    width: min(1100px, 100%);
+  }
 }

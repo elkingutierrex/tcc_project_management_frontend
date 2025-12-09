@@ -1,52 +1,67 @@
 import { Injectable, signal } from '@angular/core';
-import { ApiService } from './api.service';
-import type { Project } from '../models/project.model';
-import { firstValueFrom } from 'rxjs';
+// import { ApiService } from './api.service';
+import { ApiMockService as ApiService } from './api.mock.service';
+import { Project } from '../models/project.model';
+import { firstValueFrom, isObservable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProjectsStoreService {
+
   private _projects = signal<Project[]>([]);
-  readonly projects = this._projects;
+  projects = this._projects;
 
   private _loading = signal(false);
-  readonly loading = this._loading;
+  loading = this._loading;
 
   private _error = signal<string | null>(null);
-  readonly error = this._error;
+  error = this._error;
 
   constructor(private api: ApiService) {}
 
-  async loadProjects(): Promise<void> {
-    this._loading.set(true);
-    this._error.set(null);
+  private async resolve<T>(value: any): Promise<T> {
+    if (value && typeof value.subscribe === 'function') {
+      return await firstValueFrom(value);
+    }
+    return value;
+  }
+
+  async loadProjects() {
     try {
-      const data = await firstValueFrom(this.api.get<Project[]>('/projects'));
+      this._loading.set(true);
+
+      const data = await this.resolve<Project[]>(
+        this.api.get('/projects')
+      );
+
       this._projects.set(data ?? []);
-    } catch (err: any) {
-      this._error.set(err?.message ?? 'Error al cargar proyectos');
+
+    } catch (error) {
+      this._error.set('Error loading projects');
+
     } finally {
       this._loading.set(false);
     }
   }
 
-  async createProject(payload: Project): Promise<Project | null> {
-    this._loading.set(true);
+  async createProject(payload: Omit<Project, 'id' | 'createdAt'>) {
     try {
-      const created = await firstValueFrom(this.api.post<Project>('/projects', payload));
+      this._loading.set(true);
+
+      const created = await this.resolve<Project>(
+        this.api.post('/projects', payload)
+      );
+
       this._projects.update(prev => [created, ...prev]);
       return created;
-    } catch (err: any) {
-      this._error.set(err?.message ?? 'Error al crear proyecto');
-      return null;
+
+    } catch (err) {
+      this._error.set('Error creating project');
+      throw err;
+
     } finally {
       this._loading.set(false);
     }
-  }
-
-  // helpers
-  getProjectById(id: number) {
-    return this._projects().find(p => p.id === id) ?? null;
   }
 }

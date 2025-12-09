@@ -1,27 +1,30 @@
-<div class="page-header">
-  <h1>Projects</h1>
+<div class="app-container">
 
-  <button mat-raised-button color="primary" (click)="openCreateProject()">
-    Create Project
-  </button>
-</div>
+  <div class="page-header">
+    <h1 class="page-title">Projects</h1>
 
-<div class="content">
-  @let list = projects();
+    <button mat-raised-button color="primary" class="create-btn" (click)="openCreateProject()">
+      Create Project
+    </button>
+  </div>
 
-  @if (list.length > 0) {
-    @for (p of list; track p.id) {
-      <mat-card class="project-card">
-        <mat-card-title>{{ p.name }}</mat-card-title>
+  <div class="projects-grid">
+    @let list = projects();
 
-        <mat-card-content>
-          <p>{{ p.description }}</p>
-          <p><strong>Status:</strong> {{ p.status }}</p>
-          <p><strong>Start:</strong> {{ p.startDate }}</p>
-        </mat-card-content>
-      </mat-card>
+    @if (list.length > 0) {
+      @for (p of list; track p.id) {
+        <mat-card class="project-card">
+          <mat-card-title class="project-title">{{ p.name }}</mat-card-title>
+
+          <mat-card-content>
+            <p>{{ p.description }}</p>
+            <p><strong>Status:</strong> {{ p.status }}</p>
+            <p><strong>Start:</strong> {{ p.startDate }}</p>
+          </mat-card-content>
+        </mat-card>
+      }
+    } @else {
+      <p>No projects available.</p>
     }
-  } @else {
-    <p>No projects available.</p>
-  }
+  </div>
 </div>

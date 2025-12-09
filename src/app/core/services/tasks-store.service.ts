@@ -1,12 +1,14 @@
 import { Injectable, signal } from '@angular/core';
-import { ApiService } from './api.service';
+// import { ApiService } from './api.service';
+import { ApiMockService as ApiService } from './api.mock.service';
 import { Task } from '../models/task.model';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, isObservable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TasksStoreService {
+
   private _tasksMap = signal<Record<number, Task[]>>({});
   tasksMap = this._tasksMap;
 
@@ -18,59 +20,102 @@ export class TasksStoreService {
 
   constructor(private api: ApiService) {}
 
+  /* -----------------------------------
+        Helper to support MOCK + REAL
+  ------------------------------------ */
+private async resolve<T>(value: any): Promise<T> {
+  if (value && typeof value.subscribe === 'function') {
+    return await firstValueFrom(value) as T;
+  }
+  return value as T;
+}
+
+  /* -----------------------------------
+      LOAD TASKS FOR PROJECT
+  ------------------------------------ */
   async loadTasks(projectId: number): Promise<Task[]> {
     try {
       this._loading.set(true);
-      const tasks = await firstValueFrom(
-        this.api.get<Task[]>(`/projects/${projectId}/tasks`)
+
+      const result = await this.resolve<Task[]>(
+        this.api.get(`/projects/${projectId}/tasks`)
       );
 
-      this._tasksMap.update(prev => ({ ...prev, [projectId]: tasks ?? [] }));
-      return tasks;
+      this._tasksMap.update(prev => ({
+        ...prev,
+        [projectId]: result ?? []
+      }));
+
+      return result ?? [];
+
+    } catch (err) {
+      this._error.set('Error loading tasks');
+      return [];
     } finally {
       this._loading.set(false);
     }
   }
 
-  async createTask(projectId: number, payload: Omit<Task, 'id' | 'projectId'>) {
+  /* -----------------------------------
+      CREATE TASK
+  ------------------------------------ */
+  async createTask(
+    projectId: number,
+    payload: Omit<Task, 'id' | 'projectId'>
+  ): Promise<Task> {
     try {
       this._loading.set(true);
 
-      const created = await firstValueFrom(
-        this.api.post<Task>(`/projects/${projectId}/tasks`, {
+      const created = await this.resolve<Task>(
+        this.api.post(`/projects/${projectId}/tasks`, {
           ...payload,
-          projectId,
+          projectId
         })
       );
 
-      this._tasksMap.update(prev => {
-        const current = prev[projectId] ?? [];
-        return { ...prev, [projectId]: [created, ...current] };
-      });
+      this._tasksMap.update(prev => ({
+        ...prev,
+        [projectId]: [created, ...(prev[projectId] || [])]
+      }));
 
       return created;
+
+    } catch (err) {
+      this._error.set('Error creating task');
+      throw err;
     } finally {
       this._loading.set(false);
     }
   }
 
-  async updateStatus(taskId: number, status: Task['status']) {
+  /* -----------------------------------
+      UPDATE TASK STATUS
+  ------------------------------------ */
+  async updateStatus(taskId: number, status: Task['status']): Promise<Task> {
     try {
       this._loading.set(true);
 
-      const updated = await firstValueFrom(
-        this.api.patch<Task>(`/tasks/${taskId}/status`, { status })
+      const updated = await this.resolve<Task>(
+        this.api.patch(`/tasks/${taskId}/status`, { status })
       );
 
       this._tasksMap.update(prev => {
-        const copy = { ...prev };
-        for (const pid in copy) {
-          copy[pid] = copy[pid].map(t => (t.id === updated.id ? updated : t));
+        const updatedMap = { ...prev };
+
+        for (const pid in updatedMap) {
+          updatedMap[pid] = updatedMap[pid].map(t =>
+            t.id === updated.id ? updated : t
+          );
         }
-        return copy;
+
+        return updatedMap;
       });
 
       return updated;
+
+    } catch (err) {
+      this._error.set('Error updating task status');
+      throw err;
     } finally {
       this._loading.set(false);
     }

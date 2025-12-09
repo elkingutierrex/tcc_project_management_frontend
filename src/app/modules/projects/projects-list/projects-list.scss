@@ -1,9 +1,16 @@
 .projects-grid {
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 }
 
 .project-card {
   padding: 1rem;
+}
+
+/* MOBILE FIX */
+@media (max-width: 480px) {
+  .project-card {
+    padding: 0.75rem;
+  }
 }

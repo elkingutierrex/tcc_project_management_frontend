@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ProjectForm } from '../project-form/project-form';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-projects-page',
@@ -15,11 +16,16 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProjectsPage {
   dialog = inject(MatDialog);
   projectsStore = inject(ProjectsStoreService);
+  http = inject(HttpClient);
+  httpHandler = this.http;
 
   projects = this.projectsStore.projects;
 
   ngOnInit() {
     this.projectsStore.loadProjects();
+    alert("Projects Page Loaded");
+    console.log('project page');
+
   }
 
   openCreateProject() {
