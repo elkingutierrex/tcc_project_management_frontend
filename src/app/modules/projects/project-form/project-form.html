@@ -1,0 +1,31 @@
+<h2>Create Project</h2>
+
+<form [formGroup]="form" (ngSubmit)="save()">
+  <label>
+    Name:
+    <input type="text" formControlName="name" />
+  </label>
+
+  <label>
+    Description:
+    <textarea formControlName="description"></textarea>
+  </label>
+
+  <label>
+    Start Date:
+    <input type="date" formControlName="startDate" />
+  </label>
+
+  <label>
+    Status:
+    <select formControlName="status">
+      <option value="CREATED">Created</option>
+      <option value="IN_PROGRESS">In Progress</option>
+      <option value="CLOSED">Closed</option>
+    </select>
+  </label>
+
+  <button type="submit" [disabled]="form.invalid">
+    Save
+  </button>
+</form>

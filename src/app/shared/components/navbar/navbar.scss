@@ -1,0 +1,8 @@
+@use './../../../../assets/_colors.scss' as *;
+
+mat-toolbar {
+  background-color: $primary-color
+}
+img {
+  background-image: url('./../../../../assets/img/tcc_logo.png') no-repeat;
+}

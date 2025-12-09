@@ -1,0 +1,19 @@
+<div class="projects-grid">
+  @let list = projects();
+
+  @if (list.length > 0) {
+    @for (project of list; track project.id) {
+      <mat-card class="project-card">
+        <mat-card-title>{{ project.name }}</mat-card-title>
+
+        <mat-card-content>
+          <p>{{ project.description }}</p>
+          <p><strong>Status:</strong> {{ project.status }}</p>
+          <p><strong>Start Date:</strong> {{ project.startDate }}</p>
+        </mat-card-content>
+      </mat-card>
+    }
+  } @else {
+    <p>No projects found.</p>
+  }
+</div>
