@@ -5,11 +5,12 @@ import { ProjectForm } from '../project-form/project-form';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
+import { ProjectItem } from './project-item/project-item';
 
 @Component({
   selector: 'app-projects-page',
   standalone: true,
-  imports: [MatCardModule, MatButtonModule],
+  imports: [MatCardModule, MatButtonModule, ProjectItem],
   templateUrl: './projects-page.html',
   styleUrls: ['./projects-page.scss'],
 })

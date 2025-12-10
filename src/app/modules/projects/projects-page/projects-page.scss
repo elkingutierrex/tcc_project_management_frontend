@@ -1,71 +1,15 @@
-/* TITLE */
-.page-title {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-}
-
-/* HEADER LAYOUT */
 .page-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  margin-bottom: 1rem;
 }
 
-/* GRID RESPONSIVE */
-.projects-grid {
+.content {
   display: grid;
-  gap: 16px;
-  grid-template-columns: 1fr;    /* MOBILE FIRST */
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 }
 
-/* TABLET */
-@media (min-width: 600px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
-}
-
-/* DESKTOP */
-@media (min-width: 1200px) {
-  .projects-grid {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  }
-}
-
-/* CARD STYLES */
 .project-card {
-  padding: 14px;
-}
-
-.project-title {
-  font-size: 1.3rem;
-  margin-bottom: 6px;
-}
-
-/* BUTTON RESPONSIVE */
-.create-btn {
-  padding: 8px 16px;
-}
-
-/* MOBILE UI */
-@media (max-width: 480px) {
-  .page-header {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-  }
-
-  .create-btn {
-    width: 100%;
-  }
-
-  .project-card {
-    padding: 12px;
-  }
-
-  .project-title {
-    font-size: 1.2rem;
-  }
+  padding: 1rem;
 }

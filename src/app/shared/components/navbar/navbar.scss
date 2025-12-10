@@ -3,6 +3,10 @@
 mat-toolbar {
   background-color: $primary-color
 }
-img {
-  background-image: url('./../../../../assets/img/tcc_logo.png') no-repeat;
+.logo {
+  height: 60px;
+  margin-right: 16px;
 }
+// img {
+//   background-image: url('/public/logo.svg') no-repeat;
+// }

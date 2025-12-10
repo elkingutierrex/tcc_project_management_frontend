@@ -13,15 +13,7 @@
 
     @if (list.length > 0) {
       @for (p of list; track p.id) {
-        <mat-card class="project-card">
-          <mat-card-title class="project-title">{{ p.name }}</mat-card-title>
-
-          <mat-card-content>
-            <p>{{ p.description }}</p>
-            <p><strong>Status:</strong> {{ p.status }}</p>
-            <p><strong>Start:</strong> {{ p.startDate }}</p>
-          </mat-card-content>
-        </mat-card>
+        <app-project-item [project]="p"></app-project-item>
       }
     } @else {
       <p>No projects available.</p>

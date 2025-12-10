@@ -1,0 +1,72 @@
+<mat-card class="project-card">
+
+  <div class="header">
+    <div>
+      <div>
+        <h2>{{ project.name }} </h2>
+         <div>
+          {{ project.startDate | date:'mediumDate' }} -
+        </div>
+
+      </div>
+      <div class="project-details">
+        status: <span>{{ project.status }}</span>
+      </div>
+
+      <span> {{ project.description }} </span>
+
+      </div>
+  </div>
+
+  <mat-expansion-panel class="accordion">
+    <mat-expansion-panel-header>
+      <mat-panel-title >
+        <div class="panel-header">
+
+          <div>
+            Tasks ({{ tasks().length }})
+          </div>
+
+
+          <button mat-raised-button color="primary"
+                  class="new-task-button"
+                (click)="createTask()">
+
+            Add Task
+          </button>
+        </div>
+
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="task-list">
+      @if (tasks().length > 0) {
+        @for (task of tasks(); track task.id) {
+
+          <div class="task-item">
+
+            <div class="task-info">
+              <h4>{{ task.title }}</h4>
+              <p>{{ task.description || 'No description' }}</p>
+            </div>
+
+            <mat-select
+              class="status-select"
+              [value]="task.status"
+              (selectionChange)="changeStatus(task, $event.value)"
+            >
+              <mat-option value="CREATED">Created</mat-option>
+              <mat-option value="IN_PROGRESS">In Progress</mat-option>
+              <mat-option value="CLOSED">Closed</mat-option>
+            </mat-select>
+
+          </div>
+
+        }
+      } @else {
+        <p>No tasks available.</p>
+      }
+    </div>
+  </mat-expansion-panel>
+
+</mat-card>

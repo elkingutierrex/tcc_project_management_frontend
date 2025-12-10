@@ -74,3 +74,13 @@ html, body {
     width: min(1100px, 100%);
   }
 }
+
+.right {
+  text-align: right;
+}
+
+button {
+  background-color: $secondary-color !important;
+  gap: 12px !important;
+  color: red;
+}
