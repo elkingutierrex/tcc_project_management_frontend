@@ -84,3 +84,29 @@ button {
   gap: 12px !important;
   color: red;
 }
+
+.panel-header {
+  padding: 10px 0;
+}
+
+.header {
+  margin: 8px 0;
+  display: block !important;
+  width: 100%;
+}
+
+.project-date {
+  font-size: 0.9rem;
+  color: gray;
+  margin-left: 12px;
+  align-items: baseline;
+}
+
+.ok {
+  background-color: green;
+  font-weight: bold;
+}
+.in-progress {
+  background-color: orange;
+  font-weight: bold;
+}

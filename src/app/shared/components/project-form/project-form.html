@@ -1,0 +1,65 @@
+<div>
+  <div>
+    <h2 mat-dialog-title>Create Project</h2>
+  </div>
+  <div class="p12">
+    <mat-dialog-content class="p12">
+
+      <form [formGroup]="form" class="form-layout">
+
+        <!-- NAME -->
+        <div class="row full">
+          <mat-form-field appearance="outline" >
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" />
+            <!-- @if (form.controls.name.invalid && form.controls.name.touched) {
+              <mat-error>
+                Name is required.
+              </mat-error>
+            } -->
+          </mat-form-field>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="row full">
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3"></textarea>
+          </mat-form-field>
+        </div>
+
+        <!-- DATE + STATUS IN SAME ROW -->
+        <div class="row two-cols">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Start Date</mat-label>
+            <input matInput type="date" formControlName="startDate" />
+          </mat-form-field>
+        </div>
+
+                <!-- DATE + STATUS IN SAME ROW -->
+        <!-- <div class="row two-cols">
+          <mat-form-field appearance="outline" class="half-width">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option value="CREATED">Created</mat-option>
+              <mat-option value="IN_PROGRESS">In Progress</mat-option>
+              <mat-option value="CLOSED">Closed</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div> -->
+
+      </form>
+
+    </mat-dialog-content>
+
+    <mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close>Cancel</button>
+      <button mat-raised-button color="primary"
+              [disabled]="form.invalid"
+              (click)="save()">
+        Save
+      </button>
+    </mat-dialog-actions>
+  </div>
+  </div>
+

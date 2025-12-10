@@ -1,0 +1,87 @@
+/* Contenido del dialog */
+mat-dialog-content {
+  width: 100%;
+  display: block;
+  padding: 0 8px;
+}
+
+/* FORMULARIO */
+.form-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+/* FILAS 100% */
+.row.full,
+.row.full mat-form-field {
+  width: 100%;
+}
+
+/* Forzar ancho completo de Angular Material internamente */
+.row.full mat-form-field,
+.row.full .mat-form-field-wrapper,
+.row.full .mat-form-field-flex,
+.row.full .mat-form-field-infix {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* DESCRIPCIÓN — Forzar textarea full width */
+textarea[matInput] {
+  width: 100% !important;
+  resize: vertical;
+}
+
+/* FILA DOS COLUMNAS (DATE + STATUS) */
+.row.two-cols {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+}
+
+.row.two-cols mat-form-field {
+  flex: 1;
+  width: 100%;
+}
+
+.row.two-cols .mat-form-field-wrapper,
+.row.two-cols .mat-form-field-flex,
+.row.two-cols .mat-form-field-infix {
+  width: 100% !important;
+}
+
+/* RESPONSIVE MÓVIL */
+@media (max-width: 600px) {
+  .row.two-cols {
+    flex-direction: column;
+  }
+}
+
+
+
+
+
+/* Para todo mat-form-field dentro del dialog */
+mat-dialog-content mat-form-field {
+  width: 100%;
+  min-width: 450px;
+  max-width: 600px;
+  margin: 0 auto; /* centra el campo si el modal es más ancho */
+}
+
+/* Si usas filas (row full) */
+.row.full mat-form-field {
+  width: 100%;
+  min-width: 450px;
+  max-width: 600px;
+}
+
+/* Forzar que angular material no corte el ancho */
+.mat-form-field-wrapper,
+.mat-form-field-flex,
+.mat-form-field-infix {
+  width: 100% !important;
+  max-width: 100% !important;
+}

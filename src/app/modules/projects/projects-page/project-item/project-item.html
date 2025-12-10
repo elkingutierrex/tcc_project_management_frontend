@@ -2,11 +2,14 @@
 
   <div class="header">
     <div>
-      <div>
-        <h2>{{ project.name }} </h2>
-         <div>
-          {{ project.startDate | date:'mediumDate' }} -
-        </div>
+      <div class="project-name title">
+        <span>{{ project.name }} </span>
+
+          <span class="project-date">
+            {{ project.startDate | date:'mediumDate' }}
+          </span>
+
+
 
       </div>
       <div class="project-details">

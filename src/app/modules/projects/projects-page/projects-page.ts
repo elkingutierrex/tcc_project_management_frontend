@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ProjectsStoreService } from '../../../core/services/projects-store.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectForm } from '../project-form/project-form';
+import { ProjectForm } from '../../../shared/components/project-form/project-form';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { ProjectItem } from './project-item/project-item';
+
 
 @Component({
   selector: 'app-projects-page',
@@ -24,10 +25,10 @@ export class ProjectsPage {
 
   ngOnInit() {
     this.projectsStore.loadProjects();
-    alert("Projects Page Loaded");
     console.log('project page');
 
   }
+
 
   openCreateProject() {
     this.dialog.open(ProjectForm);
