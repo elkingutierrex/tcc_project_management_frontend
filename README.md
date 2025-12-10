@@ -1,6 +1,15 @@
 # TccProjectManagementFrontend
 
+## Project description
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.13.
+TCC Project test
+
+Before you run the project first time you should to execute
+
+```bash
+npm install
+```
 
 ## Development server
 
