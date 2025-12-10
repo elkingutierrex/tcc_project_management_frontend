@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { ProjectsStoreService } from '../../../core/services/projects-store.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ProjectForm } from '../../../shared/components/project-form/project-form';
+
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClient } from '@angular/common/http';
 import { ProjectItem } from './project-item/project-item';
+import { CreateProjectTaskDialog } from '../../../shared/components/create-project-task-dialog/create-project-task-dialog';
 
 
 @Component({
@@ -30,7 +31,8 @@ export class ProjectsPage {
   }
 
 
-  openCreateProject() {
-    this.dialog.open(ProjectForm);
+  openCreateProject( type: 'Create Project' | 'Add Task' ) {
+    const data = { type : type}
+    this.dialog.open(CreateProjectTaskDialog, {data: data }  );
   }
 }

@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { TasksStoreService } from '../../../../core/services/tasks-store.service';
 import { Project } from '../../../../core/models/project.model';
 import { TaskStatus, Task } from '../../../../core/models/task.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CreateProjectTaskDialog } from '../../../../shared/components/create-project-task-dialog/create-project-task-dialog';
 
 
 
@@ -26,6 +28,7 @@ import { TaskStatus, Task } from '../../../../core/models/task.model';
   styleUrls: ['./project-item.scss']
 })
 export class ProjectItem {
+  dialog = inject(MatDialog);
   @Input({ required: true }) project!: Project;
 
   private tasksStore = inject(TasksStoreService);
@@ -46,15 +49,29 @@ export class ProjectItem {
     );
   }
 
-  async createTask() {
-    const title = prompt('Task title:');
-    if (!title) return;
+async createTask(type: 'Create Project' | 'Add Task') {
+
+  const dialogRef = this.dialog.open(CreateProjectTaskDialog, {
+  data: {
+      type,                   // ✔ Tipo de operación
+      projectId: this.project.id // ✔ ID del proyecto actual
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(async result => {
+    if (!result) return;
+
+    console.log(result);
+
 
     const created = await this.tasksStore.createTask(this.project.id!, {
-      title,
-      status: 'CREATED'
+      title: result.name,
+      description: result.description,
+      status: result.status,
+      dueDate: result.startDate
     });
 
     this.tasks.update(list => [created, ...list]);
-  }
+  });
+}
 }

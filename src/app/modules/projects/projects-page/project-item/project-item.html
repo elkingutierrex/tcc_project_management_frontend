@@ -8,9 +8,6 @@
           <span class="project-date">
             {{ project.startDate | date:'mediumDate' }}
           </span>
-
-
-
       </div>
       <div class="project-details">
         status: <span>{{ project.status }}</span>
@@ -33,7 +30,7 @@
 
           <button mat-raised-button color="primary"
                   class="new-task-button"
-                (click)="createTask()">
+                (click)="createTask('Add Task')">
 
             Add Task
           </button>

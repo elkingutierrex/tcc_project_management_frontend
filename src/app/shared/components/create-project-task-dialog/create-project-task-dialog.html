@@ -1,6 +1,6 @@
 <div>
   <div>
-    <h2 mat-dialog-title>Create Project</h2>
+    <h2 mat-dialog-title> {{ data.type }} </h2>
   </div>
   <div class="p12">
     <mat-dialog-content class="p12">
@@ -10,7 +10,7 @@
         <!-- NAME -->
         <div class="row full">
           <mat-form-field appearance="outline" >
-            <mat-label>Name</mat-label>
+            <mat-label>{{ nameTitle }} </mat-label>
             <input matInput formControlName="name" />
             <!-- @if (form.controls.name.invalid && form.controls.name.touched) {
               <mat-error>
@@ -31,7 +31,7 @@
         <!-- DATE + STATUS IN SAME ROW -->
         <div class="row two-cols">
           <mat-form-field appearance="outline" class="half-width">
-            <mat-label>Start Date</mat-label>
+            <mat-label> {{dateTile}} </mat-label>
             <input matInput type="date" formControlName="startDate" />
           </mat-form-field>
         </div>
